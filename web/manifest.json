@@ -1,6 +1,6 @@
 {
-    "name": "football_news",
-    "short_name": "football_news",
+    "name": "football_shop",
+    "short_name": "football_shop",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
