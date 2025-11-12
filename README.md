@@ -1,52 +1,88 @@
-TUGAS 7 PBP
-1. Apa itu widget tree pada Flutter dan bagaimana hubungan parent-child bekerja antar widget?
-Widget tree adalah struktur hierarki yang menggambarkan hubungan antar widget di Flutter. Widget parent bisa berisi satu atau lebih widget child. Parent mengatur tata letak, posisi, dan gaya dari widget child di dalamnya. Misalnya, di kode ini Column berisi beberapa Row, Text, dan GridView sebagai child.
+<details> <summary><b>🧩 Tugas 7 — Konsep Widget dan Struktur Flutter</b></summary>
+Apa itu Widget Tree dan Hubungan Parent–Child
 
-2. Sebutkan semua widget yang kamu gunakan dalam proyek ini dan jelaskan fungsinya.
+Dalam Flutter, setiap elemen antarmuka — mulai dari teks, tombol, hingga keseluruhan aplikasi — merupakan widget. Semua widget disusun dalam bentuk hierarki yang disebut widget tree. Struktur ini berbentuk seperti pohon di mana setiap simpulnya adalah widget.
 
-MaterialApp → Widget utama aplikasi yang mengatur tema, judul, dan halaman awal.
+Flutter menggunakan konsep ini untuk membangun tampilan aplikasi secara efisien. Ketika terjadi perubahan, misalnya data diperbarui, hanya widget yang terpengaruh yang akan dibangun ulang. Hal ini membuat performa aplikasi menjadi lebih optimal.
 
-Scaffold → Menyediakan struktur dasar halaman (AppBar, body, dan SnackBar).
+Hubungan antar-widget dikenal sebagai parent–child relationship. Satu widget induk (parent) dapat membungkus satu atau beberapa widget anak (child). Parent mengatur posisi, ukuran, dan perilaku anak-anaknya. Contohnya, dalam susunan “Center dengan Text di dalamnya,” widget Center berperan sebagai parent dan Text sebagai child. Beberapa widget seperti Center, Container, dan Padding hanya memiliki satu child, sedangkan widget seperti Column, Row, dan GridView dapat memiliki banyak child sekaligus. Sebuah widget juga bisa menjadi parent sekaligus child tergantung konteksnya di dalam struktur aplikasi.
 
-AppBar → Bagian atas halaman untuk menampilkan judul “Football Shop”.
+Widget yang Digunakan dan Fungsinya
 
-Padding → Memberikan jarak di sekeliling body agar tidak mepet ke tepi layar.
+menu.dart
+Scaffold berfungsi sebagai kerangka utama halaman yang menyediakan struktur dasar seperti AppBar dan Body.
+AppBar menampilkan bagian atas halaman yang berisi judul “Turboa Shop.”
+Text digunakan untuk menampilkan tulisan di layar.
+Padding memberi jarak di sekitar elemen agar tidak menempel pada tepi layar.
+Column menyusun elemen secara vertikal, sedangkan Row menyusunnya secara horizontal.
+SizedBox digunakan sebagai jarak kosong antar-elemen.
+Card menampilkan konten berbentuk kartu dengan bayangan lembut.
+Icon menampilkan simbol grafis seperti ikon profil atau tombol.
+RichText dan TextSpan memungkinkan teks dengan beberapa gaya dalam satu baris.
+GridView.count menampilkan menu dalam bentuk grid agar tampilan lebih rapi.
+Material memberi gaya khas Material Design, dan InkWell menambahkan efek sentuhan (ripple).
+Container mengatur ukuran, padding, dan dekorasi dari widget lain.
+SnackBar dan ScaffoldMessenger menampilkan notifikasi singkat di bagian bawah layar.
+Center memposisikan widget anak di tengah area tampilan.
 
-Column → Menyusun widget secara vertikal.
+main.dart
+MaterialApp menjadi akar aplikasi Flutter berbasis Material Design, mengatur tema, navigasi, dan halaman awal.
+MyApp adalah root widget utama yang memanggil MaterialApp.
+MyHomePage menampilkan halaman utama dengan struktur Scaffold, AppBar, dan konten utama.
 
-Row → Menyusun widget secara horizontal (digunakan untuk InfoCard).
+Fungsi MaterialApp dan Alasan Menjadi Root Widget
 
-Center → Menempatkan widget di tengah halaman.
+MaterialApp adalah pembungkus utama aplikasi Flutter yang menyediakan kerangka desain Material Design. Ia mengatur tema global, navigasi, bahasa, serta struktur dasar aplikasi. Tanpa MaterialApp, banyak widget seperti Scaffold atau Theme tidak akan berfungsi.
+Melalui properti seperti theme, title, home, dan routes, MaterialApp membuat tampilan aplikasi menjadi konsisten dan memudahkan pengelolaan navigasi. Widget ini menjadi root karena menyediakan konteks yang dibutuhkan widget lain untuk mengakses tema dan sistem navigasi.
 
-GridView.count → Menampilkan daftar tombol (ItemCard) dalam bentuk grid tiga kolom.
+Perbedaan StatelessWidget dan StatefulWidget
 
-Card → Membuat tampilan berbentuk kartu dengan bayangan.
+StatelessWidget digunakan untuk tampilan yang tidak berubah selama aplikasi berjalan. Ia cocok untuk elemen statis seperti teks, ikon, atau logo yang tidak memerlukan pembaruan data.
 
-Container → Mengatur ukuran, padding, dan tata letak isi di dalam widget.
+StatefulWidget digunakan untuk tampilan yang dapat berubah tergantung interaksi pengguna atau data dinamis. Ia memiliki dua bagian: kelas widget itu sendiri dan kelas state yang menyimpan data dinamis. Saat data berubah, fungsi setState() dipanggil untuk memperbarui tampilan.
 
-Text → Menampilkan teks seperti nama, NPM, kelas, dan label tombol.
+Secara sederhana, StatelessWidget digunakan untuk antarmuka yang tetap, sedangkan StatefulWidget digunakan untuk komponen interaktif seperti form input atau counter.
 
-Icon → Menampilkan ikon di setiap tombol.
+BuildContext dan Perannya
 
-Material → Memberikan efek material design pada widget ItemCard.
+BuildContext adalah objek yang menunjukkan posisi suatu widget dalam struktur widget tree. Ia digunakan untuk mengakses informasi dari widget di atasnya, seperti tema, navigasi, atau data yang dibagikan.
+Misalnya, pemanggilan Theme.of(context) memanfaatkan BuildContext untuk mendapatkan tema dari MaterialApp.
+Dengan BuildContext, Flutter dapat mengetahui bagaimana widget diatur dan saling terhubung, sehingga dapat menampilkan dan memperbarui elemen dengan benar.
 
-InkWell → Memberikan efek klik (ripple effect) dan menangani aksi ketika ditekan.
+Hot Reload vs Hot Restart
 
-SnackBar → Menampilkan pesan singkat ketika tombol ditekan.
+Hot reload memungkinkan perubahan kode terlihat secara langsung tanpa kehilangan state aplikasi. Ini digunakan untuk memperbarui tampilan atau logika kecil dengan cepat.
+Hot restart memulai ulang seluruh aplikasi dan menghapus state yang ada. Ini cocok digunakan setelah melakukan perubahan besar pada struktur aplikasi atau logika awal.
+Perbedaannya, hot reload mempertahankan state sedangkan hot restart menginisialisasi ulang semuanya dari awal.
 
-SizedBox → Memberikan jarak vertikal antar elemen.
+</details>
+<details> <summary><b>⚙️ Tugas 8 — Navigasi, Layout, dan Tema Aplikasi</b></summary>
+Perbedaan Navigator.push() dan Navigator.pushReplacement()
 
-3. Apa fungsi dari widget MaterialApp? Mengapa sering digunakan sebagai widget root? MaterialApp adalah widget utama yang membungkus seluruh aplikasi berbasis Material Design. Widget ini mengatur tema, warna, dan halaman awal (home). Biasanya digunakan sebagai root karena menjadi fondasi bagi semua widget di bawahnya.
+Keduanya digunakan untuk navigasi antarhalaman, namun memiliki perbedaan cara kerja. Navigator.push() menambahkan halaman baru di atas halaman aktif sehingga pengguna bisa kembali ke halaman sebelumnya dengan tombol back.
+Navigator.pushReplacement() menggantikan halaman yang sedang aktif dengan halaman baru dan menghapus halaman sebelumnya dari tumpukan, sehingga pengguna tidak dapat kembali lagi.
 
-4. Jelaskan perbedaan antara StatelessWidget dan StatefulWidget. Kapan kamu memilih salah satunya?
-StatelessWidget tidak menyimpan data yang bisa berubah. UI-nya tetap selama aplikasi berjalan.
+Dalam aplikasi Football Shop, Navigator.push() digunakan ketika pengguna membuka form tambah produk agar bisa kembali ke halaman utama setelahnya.
+Sedangkan Navigator.pushReplacement() digunakan setelah pengguna menyimpan produk agar diarahkan kembali ke halaman utama tanpa bisa kembali ke form lama.
 
-StatefulWidget bisa menyimpan dan mengubah state sehingga tampilannya bisa berubah saat dijalankan. Pada kode ini, MyHomePage, ItemCard, dan InfoCard semuanya memakai StatelessWidget karena tampilannya tidak bergantung pada data yang berubah-ubah.
+Hierarki Scaffold, AppBar, dan Drawer
 
-5. Apa itu BuildContext dan mengapa penting di Flutter? Bagaimana penggunaannya di metode build?
-BuildContext adalah objek yang berisi informasi posisi widget di dalam widget tree. Context penting karena dipakai untuk mengakses widget parent, seperti ketika menampilkan SnackBar dengan ScaffoldMessenger.of(context). Biasanya BuildContext digunakan di dalam metode build() untuk membangun UI berdasarkan posisi widget tersebut.
+Konsistensi desain dijaga dengan memanfaatkan kombinasi Scaffold, AppBar, dan Drawer. Scaffold menjadi kerangka utama yang menyediakan AppBar di bagian atas dan Drawer di sisi kiri.
+AppBar menampilkan judul halaman seperti “Turboa Shop” atau “Add Product Form” agar pengguna selalu tahu konteks halaman yang dibuka.
+Drawer berfungsi sebagai menu navigasi yang memudahkan pengguna berpindah antarhalaman tanpa kembali ke menu utama. Kombinasi ketiganya membuat seluruh halaman tampak seragam, terstruktur, dan mudah digunakan.
 
-6. Jelaskan konsep "hot reload" di Flutter dan bagaimana bedanya dengan "hot restart".
-Hot reload memperbarui kode dan langsung menampilkan perubahan tanpa menghapus state aplikasi.
+Kelebihan Layout Widget (Padding, SingleChildScrollView, ListView)
 
-Hot restart menjalankan ulang seluruh aplikasi dari awal dan menghapus state. Hot reload digunakan saat ingin melihat perubahan cepat pada tampilan atau logika tanpa kehilangan data sementara.
+Padding digunakan untuk memberi jarak antar-elemen agar tampilan lebih rapi dan nyaman dilihat.
+SingleChildScrollView memungkinkan tampilan form yang panjang tetap bisa digulir sehingga semua elemen bisa diakses di layar kecil.
+ListView cocok untuk menampilkan daftar elemen yang panjang karena memiliki kemampuan scroll bawaan.
+Dalam halaman Add Product Form, kombinasi Padding, SingleChildScrollView, dan Column digunakan agar form tetap responsif dan tidak berantakan di berbagai ukuran layar.
+
+Penyesuaian Tema dan Identitas Visual
+
+Agar aplikasi memiliki identitas visual yang konsisten, digunakan tema warna yang sesuai dengan brand Turboa Shop, yaitu biru tua sebagai warna primer dan biru muda sebagai warna sekunder.
+Warna primer digunakan pada AppBar dan tombol utama, sedangkan warna sekunder digunakan pada Drawer dan elemen pendukung.
+Pengaturan warna dilakukan melalui ThemeData di file main.dart, dan seluruh elemen mengakses warna tema melalui Theme.of(context).colorScheme.
+Dengan penerapan ini, aplikasi memiliki tampilan yang seragam, profesional, dan mencerminkan identitas toko secara konsisten di semua halaman.
+
+</details>
