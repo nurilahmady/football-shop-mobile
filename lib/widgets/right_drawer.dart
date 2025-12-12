@@ -5,8 +5,8 @@ import 'package:football_shop/screens/product_entry_list.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-class LeftDrawer extends StatelessWidget {
-  const LeftDrawer({super.key});
+class EndDrawer extends StatelessWidget {
+  const EndDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {

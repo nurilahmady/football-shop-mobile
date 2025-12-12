@@ -1,88 +1,249 @@
-<details> <summary><b>🧩 Tugas 7 — Konsep Widget dan Struktur Flutter</b></summary>
-Apa itu Widget Tree dan Hubungan Parent–Child
+<details>
+<summary><b>🧩 Tugas 7 — Konsep Widget dan Struktur Flutter</b></summary>
 
-Dalam Flutter, setiap elemen antarmuka — mulai dari teks, tombol, hingga keseluruhan aplikasi — merupakan widget. Semua widget disusun dalam bentuk hierarki yang disebut widget tree. Struktur ini berbentuk seperti pohon di mana setiap simpulnya adalah widget.
+### 1. Widget Tree dan Hubungan Parent–Child
 
-Flutter menggunakan konsep ini untuk membangun tampilan aplikasi secara efisien. Ketika terjadi perubahan, misalnya data diperbarui, hanya widget yang terpengaruh yang akan dibangun ulang. Hal ini membuat performa aplikasi menjadi lebih optimal.
+Dalam Flutter, setiap elemen antarmuka—mulai dari teks, tombol, hingga keseluruhan aplikasi—merupakan **widget**. Seluruh widget disusun dalam struktur hierarki yang disebut **widget tree**, berbentuk seperti pohon dengan widget sebagai simpulnya.
 
-Hubungan antar-widget dikenal sebagai parent–child relationship. Satu widget induk (parent) dapat membungkus satu atau beberapa widget anak (child). Parent mengatur posisi, ukuran, dan perilaku anak-anaknya. Contohnya, dalam susunan “Center dengan Text di dalamnya,” widget Center berperan sebagai parent dan Text sebagai child. Beberapa widget seperti Center, Container, dan Padding hanya memiliki satu child, sedangkan widget seperti Column, Row, dan GridView dapat memiliki banyak child sekaligus. Sebuah widget juga bisa menjadi parent sekaligus child tergantung konteksnya di dalam struktur aplikasi.
+Flutter memanfaatkan widget tree untuk membangun tampilan secara efisien. Ketika terjadi perubahan data, hanya widget yang terdampak yang akan dibangun ulang sehingga performa aplikasi tetap optimal.
 
-Widget yang Digunakan dan Fungsinya
+Hubungan antar-widget disebut **parent–child relationship**:
+- Widget **parent** membungkus satu atau lebih widget **child**
+- Parent mengatur tata letak, ukuran, dan perilaku child
+- Contoh: `Center` sebagai parent dan `Text` sebagai child
 
-menu.dart
-Scaffold berfungsi sebagai kerangka utama halaman yang menyediakan struktur dasar seperti AppBar dan Body.
-AppBar menampilkan bagian atas halaman yang berisi judul “Turboa Shop.”
-Text digunakan untuk menampilkan tulisan di layar.
-Padding memberi jarak di sekitar elemen agar tidak menempel pada tepi layar.
-Column menyusun elemen secara vertikal, sedangkan Row menyusunnya secara horizontal.
-SizedBox digunakan sebagai jarak kosong antar-elemen.
-Card menampilkan konten berbentuk kartu dengan bayangan lembut.
-Icon menampilkan simbol grafis seperti ikon profil atau tombol.
-RichText dan TextSpan memungkinkan teks dengan beberapa gaya dalam satu baris.
-GridView.count menampilkan menu dalam bentuk grid agar tampilan lebih rapi.
-Material memberi gaya khas Material Design, dan InkWell menambahkan efek sentuhan (ripple).
-Container mengatur ukuran, padding, dan dekorasi dari widget lain.
-SnackBar dan ScaffoldMessenger menampilkan notifikasi singkat di bagian bawah layar.
-Center memposisikan widget anak di tengah area tampilan.
+Beberapa widget seperti `Center`, `Container`, dan `Padding` hanya memiliki satu child, sedangkan `Column`, `Row`, dan `GridView` dapat memiliki banyak child. Sebuah widget dapat berperan sebagai parent sekaligus child tergantung posisinya dalam widget tree.
 
-main.dart
-MaterialApp menjadi akar aplikasi Flutter berbasis Material Design, mengatur tema, navigasi, dan halaman awal.
-MyApp adalah root widget utama yang memanggil MaterialApp.
-MyHomePage menampilkan halaman utama dengan struktur Scaffold, AppBar, dan konten utama.
+---
 
-Fungsi MaterialApp dan Alasan Menjadi Root Widget
+### 2. Widget yang Digunakan dan Fungsinya
 
-MaterialApp adalah pembungkus utama aplikasi Flutter yang menyediakan kerangka desain Material Design. Ia mengatur tema global, navigasi, bahasa, serta struktur dasar aplikasi. Tanpa MaterialApp, banyak widget seperti Scaffold atau Theme tidak akan berfungsi.
-Melalui properti seperti theme, title, home, dan routes, MaterialApp membuat tampilan aplikasi menjadi konsisten dan memudahkan pengelolaan navigasi. Widget ini menjadi root karena menyediakan konteks yang dibutuhkan widget lain untuk mengakses tema dan sistem navigasi.
+#### 2.1 menu.dart
+- **Scaffold**: Kerangka utama halaman (AppBar dan body)
+- **AppBar**: Bagian atas halaman dengan judul *Mysterious Football Store*
+- **Text**: Menampilkan teks
+- **Padding**: Memberi jarak di sekitar widget
+- **Column / Row**: Menyusun widget secara vertikal / horizontal
+- **SizedBox**: Memberi jarak kosong antar-elemen
+- **Card**: Menampilkan konten berbentuk kartu
+- **Icon**: Menampilkan ikon grafis
+- **RichText & TextSpan**: Menampilkan teks dengan berbagai gaya
+- **GridView.count**: Menampilkan menu dalam bentuk grid
+- **Material**: Memberikan gaya Material Design
+- **InkWell**: Memberi efek sentuhan (ripple)
+- **Container**: Mengatur ukuran, padding, dan dekorasi
+- **SnackBar & ScaffoldMessenger**: Menampilkan notifikasi singkat
+- **Center**: Memposisikan child di tengah layar
 
-Perbedaan StatelessWidget dan StatefulWidget
+#### 2.2 main.dart
+- **MaterialApp**: Root aplikasi berbasis Material Design
+- **MyApp**: Root widget utama
+- **MyHomePage**: Halaman utama dengan Scaffold dan AppBar
 
-StatelessWidget digunakan untuk tampilan yang tidak berubah selama aplikasi berjalan. Ia cocok untuk elemen statis seperti teks, ikon, atau logo yang tidak memerlukan pembaruan data.
+---
 
-StatefulWidget digunakan untuk tampilan yang dapat berubah tergantung interaksi pengguna atau data dinamis. Ia memiliki dua bagian: kelas widget itu sendiri dan kelas state yang menyimpan data dinamis. Saat data berubah, fungsi setState() dipanggil untuk memperbarui tampilan.
+### 3. Fungsi MaterialApp sebagai Root Widget
 
-Secara sederhana, StatelessWidget digunakan untuk antarmuka yang tetap, sedangkan StatefulWidget digunakan untuk komponen interaktif seperti form input atau counter.
+MaterialApp merupakan pembungkus utama aplikasi Flutter yang:
+- Mengatur tema global
+- Menyediakan sistem navigasi
+- Mengatur bahasa dan struktur aplikasi
 
-BuildContext dan Perannya
+Tanpa MaterialApp, widget seperti `Scaffold` dan `Theme` tidak dapat digunakan. Properti seperti `theme`, `title`, `home`, dan `routes` membuat pengelolaan aplikasi menjadi konsisten dan terstruktur.
 
-BuildContext adalah objek yang menunjukkan posisi suatu widget dalam struktur widget tree. Ia digunakan untuk mengakses informasi dari widget di atasnya, seperti tema, navigasi, atau data yang dibagikan.
-Misalnya, pemanggilan Theme.of(context) memanfaatkan BuildContext untuk mendapatkan tema dari MaterialApp.
-Dengan BuildContext, Flutter dapat mengetahui bagaimana widget diatur dan saling terhubung, sehingga dapat menampilkan dan memperbarui elemen dengan benar.
+---
 
-Hot Reload vs Hot Restart
+### 4. Perbedaan StatelessWidget dan StatefulWidget
 
-Hot reload memungkinkan perubahan kode terlihat secara langsung tanpa kehilangan state aplikasi. Ini digunakan untuk memperbarui tampilan atau logika kecil dengan cepat.
-Hot restart memulai ulang seluruh aplikasi dan menghapus state yang ada. Ini cocok digunakan setelah melakukan perubahan besar pada struktur aplikasi atau logika awal.
-Perbedaannya, hot reload mempertahankan state sedangkan hot restart menginisialisasi ulang semuanya dari awal.
+- **StatelessWidget**
+  - Tidak memiliki state
+  - Tampilan tidak berubah
+  - Cocok untuk elemen statis (teks, ikon)
+
+- **StatefulWidget**
+  - Memiliki state yang dapat berubah
+  - Menggunakan `setState()` untuk memperbarui UI
+  - Cocok untuk komponen interaktif (form, counter)
+
+---
+
+### 5. BuildContext dan Perannya
+
+BuildContext merepresentasikan posisi widget dalam widget tree. BuildContext digunakan untuk:
+- Mengakses tema (`Theme.of(context)`)
+- Navigasi (`Navigator.of(context)`)
+- Mengakses data dari widget di atasnya
+
+Dengan BuildContext, Flutter mengetahui hubungan antar-widget dan dapat membangun UI secara benar.
+
+---
+
+### 6. Hot Reload vs Hot Restart
+
+- **Hot Reload**
+  - Memperbarui UI tanpa menghilangkan state
+  - Cocok untuk perubahan kecil
+
+- **Hot Restart**
+  - Menginisialisasi ulang aplikasi
+  - Menghapus seluruh state
+  - Cocok untuk perubahan besar pada struktur aplikasi
 
 </details>
-<details> <summary><b>⚙️ Tugas 8 — Navigasi, Layout, dan Tema Aplikasi</b></summary>
-Perbedaan Navigator.push() dan Navigator.pushReplacement()
 
-Keduanya digunakan untuk navigasi antarhalaman, namun memiliki perbedaan cara kerja. Navigator.push() menambahkan halaman baru di atas halaman aktif sehingga pengguna bisa kembali ke halaman sebelumnya dengan tombol back.
-Navigator.pushReplacement() menggantikan halaman yang sedang aktif dengan halaman baru dan menghapus halaman sebelumnya dari tumpukan, sehingga pengguna tidak dapat kembali lagi.
+<details>
+<summary><b>⚙️ Tugas 8 — Navigasi, Layout, dan Tema Aplikasi</b></summary>
 
-Dalam aplikasi Football Shop, Navigator.push() digunakan ketika pengguna membuka form tambah produk agar bisa kembali ke halaman utama setelahnya.
-Sedangkan Navigator.pushReplacement() digunakan setelah pengguna menyimpan produk agar diarahkan kembali ke halaman utama tanpa bisa kembali ke form lama.
+### 1. Perbedaan Navigator.push() dan Navigator.pushReplacement()
 
-Hierarki Scaffold, AppBar, dan Drawer
+- **Navigator.push()**
+  - Menambah halaman ke stack navigasi
+  - Pengguna dapat kembali ke halaman sebelumnya
 
-Konsistensi desain dijaga dengan memanfaatkan kombinasi Scaffold, AppBar, dan Drawer. Scaffold menjadi kerangka utama yang menyediakan AppBar di bagian atas dan Drawer di sisi kiri.
-AppBar menampilkan judul halaman seperti “Turboa Shop” atau “Add Product Form” agar pengguna selalu tahu konteks halaman yang dibuka.
-Drawer berfungsi sebagai menu navigasi yang memudahkan pengguna berpindah antarhalaman tanpa kembali ke menu utama. Kombinasi ketiganya membuat seluruh halaman tampak seragam, terstruktur, dan mudah digunakan.
+- **Navigator.pushReplacement()**
+  - Mengganti halaman saat ini
+  - Halaman sebelumnya dihapus dari stack
 
-Kelebihan Layout Widget (Padding, SingleChildScrollView, ListView)
+Pada aplikasi *Mysterious Football Store*:
+- `Navigator.push()` digunakan untuk membuka form tambah produk
+- `Navigator.pushReplacement()` digunakan setelah submit agar tidak kembali ke form
 
-Padding digunakan untuk memberi jarak antar-elemen agar tampilan lebih rapi dan nyaman dilihat.
-SingleChildScrollView memungkinkan tampilan form yang panjang tetap bisa digulir sehingga semua elemen bisa diakses di layar kecil.
-ListView cocok untuk menampilkan daftar elemen yang panjang karena memiliki kemampuan scroll bawaan.
-Dalam halaman Add Product Form, kombinasi Padding, SingleChildScrollView, dan Column digunakan agar form tetap responsif dan tidak berantakan di berbagai ukuran layar.
+---
 
-Penyesuaian Tema dan Identitas Visual
+### 2. Hierarki Scaffold, AppBar, dan Drawer
 
-Agar aplikasi memiliki identitas visual yang konsisten, digunakan tema warna yang sesuai dengan brand Turboa Shop, yaitu biru tua sebagai warna primer dan biru muda sebagai warna sekunder.
-Warna primer digunakan pada AppBar dan tombol utama, sedangkan warna sekunder digunakan pada Drawer dan elemen pendukung.
-Pengaturan warna dilakukan melalui ThemeData di file main.dart, dan seluruh elemen mengakses warna tema melalui Theme.of(context).colorScheme.
-Dengan penerapan ini, aplikasi memiliki tampilan yang seragam, profesional, dan mencerminkan identitas toko secara konsisten di semua halaman.
+- **Scaffold**: Kerangka utama halaman
+- **AppBar**: Menampilkan judul halaman
+- **Drawer**: Menu navigasi samping
+
+Kombinasi ketiganya menciptakan tampilan yang konsisten, terstruktur, dan mudah digunakan.
+
+---
+
+### 3. Kelebihan Layout Widget
+
+- **Padding**: Merapikan jarak antar-elemen
+- **SingleChildScrollView**: Memungkinkan form panjang tetap bisa discroll
+- **ListView**: Menampilkan daftar data dengan scroll bawaan
+
+Pada halaman *Add Product Form*, widget tersebut dikombinasikan agar tampilan tetap responsif di berbagai ukuran layar.
+
+---
+
+### 4. Penyesuaian Tema dan Identitas Visual
+
+Aplikasi menggunakan tema warna neon sebagai identitas visual:
+- Warna utama: AppBar dan tombol
+- Warna sekunder: Drawer dan elemen pendukung
+
+Pengaturan dilakukan melalui `ThemeData` di `main.dart` dan diakses menggunakan `Theme.of(context).colorScheme`.
+
+</details>
+
+<details>
+<summary><b>🔐 Tugas 9 — Integrasi Flutter dengan Backend Django</b></summary>
+
+### 1. Alasan Menggunakan Model Dart untuk JSON
+
+Model Dart digunakan untuk mengubah JSON yang tidak bertipe menjadi objek Dart bertipe jelas.
+
+Tanpa model (`Map<String, dynamic>`):
+- Tidak ada validasi tipe
+- Rentan typo pada key JSON
+- Sulit dipelihara saat proyek membesar
+
+Dengan model Dart:
+- Struktur data terdokumentasi
+- Mendukung null-safety
+- Lebih aman dan mudah dikembangkan
+
+---
+
+### 2. Perbedaan Package http dan CookieRequest
+
+- **http**
+  - Request stateless
+  - Tidak menyimpan sesi atau cookie
+
+- **CookieRequest**
+  - Mengelola cookie session Django
+  - Digunakan untuk autentikasi
+
+---
+
+### 3. Alasan CookieRequest Dibagikan dengan Provider
+
+Jika setiap halaman membuat CookieRequest baru:
+- Session hilang
+- Django menganggap user belum login
+
+Solusi:
+- Gunakan **Provider**
+- Satu instance CookieRequest untuk seluruh aplikasi
+
+---
+
+### 4. Konfigurasi Konektivitas Flutter ↔ Django
+
+#### 4.1 ALLOWED_HOSTS
+- Tambahkan `10.0.2.2` untuk emulator Android
+
+#### 4.2 CORS
+- Mengizinkan request lintas domain/port
+
+#### 4.3 Cookie & SameSite
+- Gunakan `SAMESITE=None` agar cookie terkirim
+
+#### 4.4 Permission Internet
+- Tambahkan izin internet di AndroidManifest.xml
+
+Kesalahan konfigurasi dapat menyebabkan:
+- Connection refused
+- 403 Forbidden
+- Login gagal
+
+---
+
+### 5. Alur Pengiriman dan Penampilan Data
+
+1. User mengisi form di Flutter
+2. Data divalidasi dan diubah ke JSON
+3. POST dikirim ke Django via CookieRequest
+4. Django memproses dan mengirim JSON
+5. Flutter melakukan GET
+6. JSON diubah menjadi model Dart
+7. Data ditampilkan dengan ListView / FutureBuilder
+
+---
+
+### 6. Mekanisme Autentikasi
+
+#### 6.1 Register
+- Flutter kirim data
+- Django buat user
+- User diarahkan ke login
+
+#### 6.2 Login
+- Flutter kirim username & password
+- Django buat session
+- Cookie disimpan oleh CookieRequest
+
+#### 6.3 Logout
+- Flutter panggil logout
+- Django hapus session
+- User kembali ke halaman login
+
+---
+
+### 7. Langkah Implementasi
+
+1. Konfigurasi Django (CORS, cookie, ALLOWED_HOSTS)
+2. Buat endpoint login, register, logout (JSON)
+3. Setup Flutter (Provider, http, pbp_django_auth)
+4. Bagikan CookieRequest dengan Provider
+5. Buat model Dart
+6. Implementasi halaman produk dan form
+7. Tambahkan filter “My Products”
+8. Lengkapi navigasi aplikasi
 
 </details>
